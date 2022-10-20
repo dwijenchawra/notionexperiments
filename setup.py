@@ -6,11 +6,11 @@ Usage:
 """
 from setuptools import setup
 
-plist = {"NSPrincipalClass": "SillyBalls"}
-
+plist = {"NSMainNibFile": "OpenGLDemo"}
 setup(
-    plugin=["SillyBalls.py"],
-    data_files=["English.lproj"],
-    options={"py2app": {"extension": ".saver", "plist": plist}},
-    setup_requires=["py2app", "pyobjc-framework-Cocoa", "pyobjc-framework-ScreenSaver"],
+    name="OpenGLDemo",
+    app=["OpenGLDemo.py"],
+    data_files=["OpenGLDemo.nib"],
+    options={"py2app": {"plist": plist}},
+    setup_requires=["py2app", "PyOpenGL", "pyobjc-framework-Cocoa"],
 )
