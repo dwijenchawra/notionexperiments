@@ -1,6 +1,12 @@
+import os
 import requests
+from dotenv import load_dotenv
+import json
 
-url = "https://api.notion.com/v1/databases/todos-472716bb9fca4d05a32bdd20d65d187f/query"
+load_dotenv()
+
+
+url = "https://api.notion.com/v1/databases/e19eff6dfb4745919abd6cfd66dc54f2/query"
 
 payload = {
     "page_size": 100,
@@ -20,9 +26,18 @@ headers = {
     "accept": "application/json",
     "Notion-Version": "2022-06-28",
     "content-type": "application/json",
-    "authorization": ""
+    "authorization": os.getenv('TOKEN')
 }
 
 response = requests.post(url, json=payload, headers=headers)
 
-print(response.text)
+# print(response.text)
+
+data = json.loads(response.text)
+
+item = data["results"][0]
+print(item)
+
+json_formatted_str = json.dumps(item, indent=2)
+
+print(json_formatted_str)
