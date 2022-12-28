@@ -1,4 +1,6 @@
 import os
+from pprint import pprint
+import subprocess
 import requests
 from dotenv import load_dotenv
 import json
@@ -7,7 +9,7 @@ import argparse
 load_dotenv()
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--status", help="select from 'incomplete', 'complete'")
+parser.add_argument("--status", help="select from 'incomplete', 'complete'", default="complete")
 parser.add_argument("--uuids", help="", required=False)
 args = parser.parse_args()
 
@@ -59,4 +61,6 @@ response = requests.post(url, json=payload, headers=headers)
 data = json.loads(response.text)
 
 item = data["results"]
-print(item)
+pprint(item)
+
+print(subprocess.run(['shortcuts', 'run', 'Get all reminders with status'], capture_output=True, text=True).stdout)
